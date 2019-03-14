@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 
+#include "plotter.h"
 #include "location.h"
 #include "color.h"
 #include "pixel.h"
