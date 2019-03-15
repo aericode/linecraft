@@ -17,6 +17,8 @@ public:
 
 	std::vector<Pixel> plotPending;
 
+	Plotter plotBuffer;
+
 	Canvas(){}
 	Canvas(int _xSize, int _ySize, std::string _filename = "default.ppm"){		
 		xSize = _xSize;
