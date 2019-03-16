@@ -18,6 +18,8 @@ private:
     std::vector<std::string> docLines;
     std::string fileName;
 
+    int filePixelCount;
+
 public:
 	Plotter(){}
 
@@ -28,20 +30,22 @@ public:
 		xSize = xSize_;
 		ySize = ySize_;
 
-		docLines.resize( (xSize*ySize) + 3 );
+		filePixelCount = (xSize*ySize) + 3;
+
+		docLines = std::vector<std::string>(filePixelCount, "0 0 0");
 
 		docLines[0] = "P3";
 		docLines[1] = std::to_string(xSize) + " " +  std::to_string(ySize);
 		docLines[2] = "255";
 
-		clear();
+		std::cout<<docLines.size()<<std::endl;
 	}
 
 	int matrixToLine(Location location){
 		int x = location.getX();
 		int y = location.getY();
 
-		return y*ySize + x;
+		return y*xSize + x;
 	}
 
 	std::string colorToString(Color color){
@@ -60,7 +64,7 @@ public:
 	}
 
 
-	void changeLine(Location location, Color color){
+	void changePixel(Location location, Color color){
 		int indexLine = 3 + matrixToLine(location);
 
 		docLines[indexLine] = colorToString(color);
@@ -76,7 +80,6 @@ public:
 
 
 	void printBuffer(){
-
 		for(int i = 0;i < docLines.size();i++){
 			std::cout<<docLines[i]<<std::endl;
 		}

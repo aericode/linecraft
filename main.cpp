@@ -8,22 +8,18 @@
 
 
 int main(){
-	/*
-	Location start(99,50);
-	Location end(0,0);
+
+	Location start(0,0);
+	Location end(10,30);
 
 
 	Canvas canvas(100,100);
 
 
 	canvas.lineBres(start,end);
-	canvas.plotAll();
-	*/
 
-	Plotter teste(100,100,"teste.ppm");
-	//teste.clear();
-	//teste.printBuffer();
-	teste.plotFile();
+	//canvas.plotAll();
+
 
 	return 0;
 }

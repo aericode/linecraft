@@ -50,6 +50,7 @@ public:
 		}
 	}
 
+	/*
 	void lineBres(Location starter, Location final){
 		Color defaultColor(0,0,0);
 
@@ -91,6 +92,46 @@ public:
 		plotPending.push_back(lastPixel);
 
     }
+    */
+
+
+	void lineBres(Location starter, Location final){
+		Color defaultColor(0,0,0);
+
+		if(starter.getX()>final.getY()){
+			std::swap(starter,final);
+		}
+
+		int dx  = final.getX() - starter.getX();
+        int dy  = final.getY() - starter.getY();
+
+
+        int x   = starter.getX();
+        int y   = starter.getY();
+
+
+
+        int eps = 2*dy - dx;
+    
+    	while(x<final.getX()){
+			if(eps  >= 0){
+				y++;
+				eps += (2*dy-2*dx);
+			}
+			else{
+				eps += 2*dy;
+			}
+
+			Location nextLocation(x,y);
+			plotBuffer.changePixel(nextLocation, defaultColor);
+
+			x++;
+		}
+
+		plotBuffer.changePixel(final, defaultColor);
+
+    }
+
 
 	bool isIncluded(Location tested){
 		for(int i = 0; i < plotPending.size();i++){
@@ -103,37 +144,7 @@ public:
 
 
 	void plotAll(){
-
-		int r;
-		int g;
-		int b;
-
-
-		myfile.open(filename.c_str());
-
-		myfile<< "P3"  << std::endl
-			  << xSize << " " << ySize << std::endl 
-			  << "255" << std::endl;
-
-		for (int j = 0; j <  ySize; j++){
-			for(int i = 0; i < xSize; i++){
-
-				Location nextLocation(i,j);
-
-				if( isIncluded(nextLocation) ){
-					r = 0;
-					g = 0;
-					b = 0;
-				}else{
-					r = 255;
-					g = 255;
-					b = 255;
-				}
-				
-
-				myfile<< r << " " << g << " " << b << std::endl;
-			}
-		}
+		plotBuffer.plotFile();		
 	}
 
 };
