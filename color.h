@@ -31,7 +31,7 @@ public:
 };
 
 std::ostream& operator<<(std::ostream &strm, const Color& col) {
-  return strm << col.r << " " << col.g << " " << col.b;
+	return strm << col.r << " " << col.g << " " << col.b;
 }
 
 #endif

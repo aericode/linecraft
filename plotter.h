@@ -1,6 +1,7 @@
 #ifndef PLOTTER
 #define PLOTTER
 #include <iostream>
+#include <fstream>
 
 #include "location.h"
 #include "color.h"
@@ -22,16 +23,18 @@ public:
 
 	Plotter(int xSize_,int ySize_,std::string fileName_){
 
-		clear();
+		fileName = fileName_;
 
 		xSize = xSize_;
 		ySize = ySize_;
 
-		docLines.reserve( (xSize*ySize) + 3 );
+		docLines.resize( (xSize*ySize) + 3 );
+
 		docLines[0] = "P3";
-		docLines[1] = xSize + " " +ySize;
+		docLines[1] = std::to_string(xSize) + " " +  std::to_string(ySize);
 		docLines[2] = "255";
 
+		clear();
 	}
 
 	int matrixToLine(Location location){
@@ -67,9 +70,18 @@ public:
 
 	void clear(){
 		for(int i = 3;i < docLines.size();i++){
-			docLines[i]="0 0 0";
+			docLines[i]="255 255 255";
 		}
 	}
+
+
+	void printBuffer(){
+
+		for(int i = 0;i < docLines.size();i++){
+			std::cout<<docLines[i]<<std::endl;
+		}
+	}
+
 	
 	void plotFile(){
 		std::ofstream myfile;

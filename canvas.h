@@ -15,16 +15,20 @@ public:
 	int ySize;
 	std::ofstream myfile;
 	std::string filename;
-
-	std::vector<Pixel> plotPending;
+	std::vector<Pixel> plotPending; 
 
 	Plotter plotBuffer;
 
 	Canvas(){}
-	Canvas(int _xSize, int _ySize, std::string _filename = "default.ppm"){		
-		xSize = _xSize;
-		ySize = _ySize;
-		filename = _filename;
+	Canvas(int xSize_, int ySize_, std::string filename_ = "default.ppm"){		
+		xSize = xSize_;
+		ySize = ySize_;
+		filename = filename_;
+
+		Plotter plotTest(xSize,ySize,"teste.ppm");
+
+		plotTest.clear();
+		plotTest.plotFile();
 	}
 
 	void clear(){
