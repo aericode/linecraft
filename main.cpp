@@ -10,15 +10,15 @@
 int main(){
 
 	Location start(0,0);
-	Location end(10,30);
+	Location end(50,99);
 
 
-	Canvas canvas(100,100);
+	Canvas canvas(100,100,"ruim.ppm");
 
 
 	canvas.lineBres(start,end);
 
-	//canvas.plotAll();
+	canvas.plotAll();
 
 
 	return 0;

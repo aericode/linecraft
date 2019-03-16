@@ -67,7 +67,10 @@ public:
 	void changePixel(Location location, Color color){
 		int indexLine = 3 + matrixToLine(location);
 
-		docLines[indexLine] = colorToString(color);
+		//docLines[indexLine] = colorToString(color);
+
+		std::cout<<location.getX()<<" "<<location.getY()<<std::endl;
+		std::cout<<"fim da linha"<<std::endl;
 	}
 
 
