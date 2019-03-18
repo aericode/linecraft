@@ -79,11 +79,8 @@ public:
 
 
 	void changePixel(Location location, Color color){
-		if(!isValidLocation(location)){
-			std::cout<<"localização inválida"<<std::endl;
-			std::cout<<location.getX()<<" "<<location.getY()<<std::endl;
-			return;
-		}
+		//se estiver fora do limite simplesmente ignora
+		if(!isValidLocation(location)){return;}
 
 
 		int indexLine = 3 + matrixToLine(location);
