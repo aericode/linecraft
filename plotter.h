@@ -42,7 +42,7 @@ public:
 	}
 
 	~Plotter(){
-		//delete[] docLines;
+		delete[] docLines;
 	}
 
 	int matrixToLine(Location location){
