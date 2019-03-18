@@ -78,7 +78,7 @@ public:
 	}
 
 
-	void changePixel(Location location, Color color){
+	void changePixel(Location location, Color color = Color(0,0,0)){
 		//se estiver fora do limite simplesmente ignora
 		if(!isValidLocation(location)){return;}
 
@@ -93,13 +93,6 @@ public:
 	void clear(){
 		for(int i = 3;i < fileLineCount;i++){
 			docLines[i]="255 255 255";
-		}
-	}
-
-
-	void printBuffer(){
-		for(int i = 0;i < fileLineCount;i++){
-			std::cout << docLines[i] << std::endl;
 		}
 	}
 

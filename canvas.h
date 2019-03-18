@@ -32,7 +32,6 @@ public:
 
 
 	void lineBres(Location starter, Location final){
-		Color defaultColor(0,0,0);
 
 		if(starter.getX()>final.getY()){
 			std::swap(starter,final);
@@ -49,7 +48,7 @@ public:
 
         int eps = 2*dy - dx;
     
-    	while(x<final.getX()){
+    	while(x < final.getX()){
 			if(eps  >= 0){
 				y++;
 				eps += (2*dy-2*dx);
@@ -58,13 +57,74 @@ public:
 				eps += 2*dy;
 			}
 
-			Location nextLocation(x,y);
-			plotBuffer->changePixel(nextLocation, defaultColor);
+			plotBuffer->changePixel(Location(x,y));
 
 			x++;
 		}
 
     }
+
+    //adaptando o modelo desse site
+    //https://www.geeksforgeeks.org/mid-point-circle-drawing-algorithm/
+    //para o canvas do projeto
+    void circleMidPoint(Location centre, int r) {
+
+    	int x_centre = centre.getX();
+    	int y_centre = centre.getY();
+
+	    int x = r, y = 0;
+
+	    
+	    plotBuffer->changePixel(Location ( x + x_centre, y + y_centre));
+	      
+
+	    if (r > 0) 
+	    { 
+	    	plotBuffer->changePixel(Location ( x + x_centre,-y + y_centre));
+	    	plotBuffer->changePixel(Location ( y + x_centre, x + y_centre));
+	    	plotBuffer->changePixel(Location (-y + x_centre, x + y_centre));
+	    }
+
+
+	    int P = 1 - r; 
+	    while (x > y) 
+	    {  
+	        y++; 
+	          
+ 
+	        if (P <= 0){ 
+	            P = P + 2*y + 1; 
+	        }else{ 
+	            x--; 
+	            P = P + 2*y - 2*x + 1; 
+	        } 
+	          
+	        if (x < y){break;}
+	          
+
+
+	        plotBuffer->changePixel(Location ( x + x_centre, y + y_centre));
+	        plotBuffer->changePixel(Location (-x + x_centre, y + y_centre));
+	        plotBuffer->changePixel(Location ( x + x_centre,-y + y_centre));
+	        plotBuffer->changePixel(Location (-x + x_centre,-y + y_centre));
+	          
+
+	        if (x != y) 
+	        { 
+	        	plotBuffer->changePixel(Location ( y + x_centre, x + y_centre));
+	        	plotBuffer->changePixel(Location (-y + x_centre, x + y_centre));
+	        	plotBuffer->changePixel(Location ( y + x_centre,-x + y_centre));
+	        	plotBuffer->changePixel(Location (-y + x_centre,-x + y_centre));
+	        } 
+	    } 
+	}
+
+
+	void polyLine(std::vector<Location> points){
+		for(int i = 0; i < points.size() - 1; i++){
+			lineBres(points[i],points[i+1]);
+		}
+	}
 
 
 	void saveFile(){
