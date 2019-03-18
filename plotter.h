@@ -68,7 +68,22 @@ public:
 	}
 
 
+	bool isValidLocation(Location location){
+		bool validX = (location.getX() < xSize) && (location.getX()>= 0);
+		bool validY = (location.getY() < ySize) && (location.getY()>= 0);
+
+		return validX && validY;
+	}
+
+
 	void changePixel(Location location, Color color){
+		if(!isValidLocation(location)){
+			std::cout<<"localização inválida"<<std::endl;
+			std::cout<<location.getX()<<" "<<location.getY()<<std::endl;
+			return;
+		}
+
+
 		int indexLine = 3 + matrixToLine(location);
 
 		docLines[indexLine] = colorToString(color);

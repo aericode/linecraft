@@ -17,7 +17,7 @@ int main(){
 
 	canvas.lineBres(start,end);
 
-	//canvas.saveFile();
+	canvas.saveFile();
 
 
 
