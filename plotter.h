@@ -39,6 +39,8 @@ public:
 		docLines[0] = "P3";
 		docLines[1] = std::to_string(xSize) + " " +  std::to_string(ySize);
 		docLines[2] = "255";
+
+		plotFile();
 	}
 
 	~Plotter(){

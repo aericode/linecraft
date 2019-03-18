@@ -26,29 +26,8 @@ public:
 		filename = filename_;
 
 		plotBuffer = new Plotter (xSize,ySize,filename);
-
-		plotBuffer->clear();
-		plotBuffer->plotFile();
 	}
 
-	void clear(){
-		myfile.open(filename.c_str());
-
-		myfile<< "P3"  << std::endl
-			  << xSize << " " << ySize << std::endl 
-			  << "255" << std::endl;
-
-		for (int j = 0; j <  ySize; j++){
-			for(int i = 0; i < xSize; i++){
-
-				int r  = 255;
-				int g  = 255;
-				int b  = 255;
-
-				myfile<< r << " " << g << " " << b << std::endl;
-			}
-		}
-	}
 
 
 
