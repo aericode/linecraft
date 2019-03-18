@@ -7,7 +7,6 @@
 #include "plotter.h"
 #include "location.h"
 #include "color.h"
-#include "pixel.h"
 
 class Canvas{
 public:

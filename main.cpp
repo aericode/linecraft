@@ -3,7 +3,6 @@
 #include "plotter.h"
 #include "location.h"
 #include "color.h"
-#include "pixel.h"
 #include "canvas.h"
 
 
