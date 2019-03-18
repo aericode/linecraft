@@ -15,10 +15,10 @@ private:
 
 	int xSize;
 	int ySize;
-    std::vector<std::string> docLines;
-    std::string fileName;
+    std::string* docLines;
+    std::string  fileName;
 
-    int filePixelCount;
+    int fileLineCount;
 
 public:
 	Plotter(){}
@@ -30,22 +30,26 @@ public:
 		xSize = xSize_;
 		ySize = ySize_;
 
-		filePixelCount = (xSize*ySize) + 3;
+		fileLineCount = (xSize*ySize) + 3;
 
-		docLines = std::vector<std::string>(filePixelCount, "0 0 0");
+		docLines = new std::string[fileLineCount];
+
+		clear();
 
 		docLines[0] = "P3";
 		docLines[1] = std::to_string(xSize) + " " +  std::to_string(ySize);
 		docLines[2] = "255";
+	}
 
-		std::cout<<docLines.size()<<std::endl;
+	~Plotter(){
+		//delete[] docLines;
 	}
 
 	int matrixToLine(Location location){
 		int x = location.getX();
 		int y = location.getY();
 
-		return y*xSize + x;
+		return x + y*xSize;
 	}
 
 	std::string colorToString(Color color){
@@ -67,24 +71,21 @@ public:
 	void changePixel(Location location, Color color){
 		int indexLine = 3 + matrixToLine(location);
 
-		//docLines[indexLine] = colorToString(color);
-
-		std::cout<<location.getX()<<" "<<location.getY()<<std::endl;
-		std::cout<<"fim da linha"<<std::endl;
+		docLines[indexLine] = colorToString(color);
 	}
 
 
 
 	void clear(){
-		for(int i = 3;i < docLines.size();i++){
+		for(int i = 3;i < fileLineCount;i++){
 			docLines[i]="255 255 255";
 		}
 	}
 
 
 	void printBuffer(){
-		for(int i = 0;i < docLines.size();i++){
-			std::cout<<docLines[i]<<std::endl;
+		for(int i = 0;i < fileLineCount;i++){
+			std::cout << docLines[i] << std::endl;
 		}
 	}
 
@@ -94,7 +95,7 @@ public:
 
 		myfile.open(fileName.c_str());
 
-		for(int i = 0;i < docLines.size();i++){
+		for(int i = 0;i < fileLineCount;i++){
 			myfile<<docLines[i]<<std::endl;
 		}
 	}

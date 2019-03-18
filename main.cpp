@@ -9,16 +9,16 @@
 
 int main(){
 
-	Location start(0,0);
-	Location end(50,99);
+	Location start(10,10);
+	Location end(30,30);
 
 
-	Canvas canvas(100,100,"ruim.ppm");
-
+	Canvas canvas(100,100,"default.ppm");
 
 	canvas.lineBres(start,end);
 
-	canvas.plotAll();
+	//canvas.saveFile();
+
 
 
 	return 0;

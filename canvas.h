@@ -20,12 +20,14 @@ public:
 	Plotter plotBuffer;
 
 	Canvas(){}
-	Canvas(int xSize_, int ySize_, std::string filename_ = "default.ppm"){		
+
+	Canvas(int xSize_, int ySize_, std::string filename_){	
+
 		xSize = xSize_;
 		ySize = ySize_;
 		filename = filename_;
 
-		Plotter plotTest(xSize,ySize,"teste.ppm");
+		Plotter plotTest(xSize,ySize,filename);
 
 		plotTest.clear();
 		plotTest.plotFile();
@@ -50,7 +52,7 @@ public:
 		}
 	}
 
-	
+	/*
 	void lineBres(Location starter, Location final){
 		Color defaultColor(0,0,0);
 
@@ -86,15 +88,10 @@ public:
 			x++;
 		}
 
-
-		Pixel lastPixel(final,defaultColor);
-
-		plotPending.push_back(lastPixel);
-
     }
-    
+    */
 
-	/*
+
 	void lineBres(Location starter, Location final){
 		Color defaultColor(0,0,0);
 
@@ -128,10 +125,8 @@ public:
 			x++;
 		}
 
-		plotBuffer.changePixel(final, defaultColor);
-
     }
-    */
+
 
 	bool isIncluded(Location tested){
 		for(int i = 0; i < plotPending.size();i++){
@@ -175,5 +170,9 @@ public:
 				myfile<< r << " " << g << " " << b << std::endl;
 			}
 		}
+	}
+
+	void saveFile(){
+		//plotBuffer.printBuffer();
 	}
 };
