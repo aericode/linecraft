@@ -8,7 +8,7 @@
 
 
 int main(){
-
+	/*
 	std::vector<Location> mouth;
 	std::vector<Location> nose;
 
@@ -30,6 +30,11 @@ int main(){
 
 	canvas.saveFile();
 
+	*/
+
+	Canvas canvas(100,100,"default.ppm");
+	canvas.draw_line(0,10);
+	canvas.saveFile();
 
 
 	return 0;
