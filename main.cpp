@@ -33,7 +33,13 @@ int main(){
 
 	Canvas canvas(100,100,"default.ppm");
 
-	canvas.drawLine(Location(50,50),Location(90,50),100);
+	canvas.drawLine(Location(50,50),Location(10,90),2);
+
+	/*
+	for(int i = 0; i < 8 ; i++){
+		canvas.lineBres(Location(50,50-i),Location(90,10-i));
+	}
+	*/
 
 	canvas.saveFile();
 

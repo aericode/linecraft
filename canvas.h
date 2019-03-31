@@ -28,7 +28,7 @@ public:
 
 		plotBuffer = new Plotter (xSize,ySize,filename);
 	}
-
+	/*
 	void drawLine(Location starter, Location final, int thickness = 0){
 
 		lineBres(starter,final);
@@ -47,6 +47,58 @@ public:
 			}
 		}
 	}
+	*/
+
+
+
+
+
+    void drawLine(Location starter, Location final, int thickness = 1){
+
+		//lineBres(starter,final);
+
+		int dx = final.getX() - starter.getX();
+		int dy = final.getY() - starter.getY();
+
+		bool isVertical = false;
+
+		if(dx == 0){
+			dx = 1;//não dividir por zero
+			isVertical = true;
+		}
+
+		if(dy/dx < 1 && !isVertical){
+	        for(int i = 0 ; i < thickness;i++){
+
+	        	Location   upStarter(starter.getX()  , starter.getY() + i);
+	        	Location     upFinal(final.getX()    , final.getY()   + i);
+
+				Location   downStarter(starter.getX(), starter.getY() - i);
+				Location     downFinal(final.getX()  , final.getY()   - i);
+
+
+	            lineBres(upStarter,upFinal);
+				lineBres(downStarter,downFinal);
+
+	        }
+	    }else{
+	        for(int i = 0; i < thickness; i++){
+
+	        	Location   rightStarter(starter.getX() + i, starter.getY());
+	        	Location     rightFinal(final.getX()   + i,   final.getY());
+
+				Location   leftStarter(starter.getX() - i,  starter.getY());
+				Location     leftFinal(final.getX()   - i,    final.getY());
+
+
+	            lineBres(rightStarter,rightFinal);
+				lineBres(leftStarter,leftFinal);
+	        }
+	    }
+	}
+
+
+
 
     //adaptado de https://tinyurl.com/y5huypgj
 	void lineBres(Location starter, Location final){
