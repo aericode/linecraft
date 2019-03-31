@@ -29,46 +29,27 @@ public:
 		plotBuffer = new Plotter (xSize,ySize,filename);
 	}
 
+	void drawLine(Location starter, Location final, int thickness = 0){
+
+		lineBres(starter,final);
+
+		if(thickness > 0){
+			for(int i = 1; i < thickness; i++){
+				Location   upStarter(starter.getX() + i, starter.getY() + i);
+				Location downStarter(starter.getX() - i, starter.getY() - i);
+
+				Location   upFinal(final.getX() + i, final.getY() + i);
+				Location downFinal(final.getX() - i, final.getY() - i);
 
 
-
-	void lineBres(Location starter, Location final){
-
-		if(starter.getX()>final.getY()){
-			std::swap(starter,final);
-		}
-
-		int dx  = final.getX() - starter.getX();
-        int dy  = final.getY() - starter.getY();
-
-
-        int x   = starter.getX();
-        int y   = starter.getY();
-
-
-
-        int eps = 2*dy - dx;
-    
-    	while(x < final.getX()){
-			if(eps  >= 0){
-				y++;
-				eps += (2*dy-2*dx);
+				lineBres(upStarter,upFinal);
+				lineBres(downStarter,downFinal);
 			}
-			else{
-				eps += 2*dy;
-			}
-
-			plotBuffer->changePixel(Location(x,y));
-
-			x++;
 		}
-
-    }
+	}
 
     //adaptado de https://tinyurl.com/y5huypgj
-	void draw_line(Location starter, Location final){
-
-
+	void lineBres(Location starter, Location final){
 
 	    //inicial
 	    int x;
@@ -161,7 +142,7 @@ public:
 
 	        plotBuffer->changePixel(Location(x,y));
 
-	        for (i = 0; y < yf; i++) {
+	        for (int i = 0; y < yf; i++) {
 	            y = y + 1;
 
 	            //Octantes
@@ -183,7 +164,6 @@ public:
 
     //adaptando o modelo desse site
     //https://www.geeksforgeeks.org/mid-point-circle-drawing-algorithm/
-    //para o canvas do projeto
     void circleMidPoint(Location centre, int r) {
 
     	int x_centre = centre.getX();

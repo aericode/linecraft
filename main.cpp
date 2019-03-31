@@ -29,13 +29,13 @@ int main(){
 	canvas.polyLine(mouth);
 
 	canvas.saveFile();
-
 	*/
 
 	Canvas canvas(100,100,"default.ppm");
-	canvas.draw_line(0,10);
-	canvas.saveFile();
 
+	canvas.drawLine(Location(50,50),Location(90,50),100);
+
+	canvas.saveFile();
 
 	return 0;
 }
