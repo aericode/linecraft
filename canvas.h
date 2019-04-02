@@ -9,9 +9,12 @@
 #include <bits/stdc++.h>
 #include <cmath> 
 
+
+#include "vec3.h"
 #include "plotter.h"
 #include "location.h"
-#include "color.h"
+
+typedef vec3 Color;
 
 class Canvas{
 public:
@@ -260,6 +263,44 @@ public:
 
 	void saveFile(){
 		plotBuffer->plotFile();
+	}
+
+	/*
+		tx = x/Xtotal
+		ty = Y/Ytotal 
+		lowerbottom = 00
+		upperleft   = 10
+		lowerright  = 01
+		upperright  = 11
+		baseado no algoritmo de interpolação de https://bit.ly/2HTu8eL
+	*/
+	Color interpolatePixel(float tx, float ty, Color cor00, Color cor10, Color cor01, Color cor11){
+		Color left  = cor00 * (1 - tx) + cor10 * tx;
+		Color right = cor01 * (1 - tx) + cor11 * tx;
+
+		Color interpolated = left * (1 - ty) + right * ty;
+		interpolated[0] = (int)interpolated[0];
+		interpolated[1] = (int)interpolated[1];
+		interpolated[2] = (int)interpolated[2];
+
+		return interpolated;
+	}
+
+	void interpolate(Color cor00, Color cor10, Color cor01, Color cor11){
+
+		Color currentColor;
+
+		for (int j = ySize-1; j >=  0; j--){
+			for(int i = 0; i <  xSize; i++){
+
+				float tx = float(i) / float (xSize);//percentual horizontal
+				float ty = float(j) / float (ySize);//percentual vertical
+
+				currentColor = interpolatePixel(tx,ty,cor00,cor10,cor01,cor11);
+
+				plotBuffer->changePixel(Location ( i, j), currentColor);
+			}
+		}
 	}
 };
 

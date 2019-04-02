@@ -4,10 +4,12 @@
 #include <fstream>
 
 #include "location.h"
-#include "color.h"
 
 #include <vector>
 #include <string>
+
+using namespace std;
+typedef vec3 Color;
 
 class Plotter
 {
@@ -54,21 +56,6 @@ public:
 		return x + y*xSize;
 	}
 
-	std::string colorToString(Color color){
-
-		std::string colorString;
-
-		int r = color.getR();
-		int g = color.getG();
-		int b = color.getB();
-
-
-		colorString =  std::to_string(r) + " " +  std::to_string(g) + " " +  std::to_string(b);
-
-		return colorString;
-
-	}
-
 
 	bool isValidLocation(Location location){
 		bool validX = (location.getX() < xSize) && (location.getX()>= 0);
@@ -77,6 +64,14 @@ public:
 		return validX && validY;
 	}
 
+	string stringify(Color color){
+		string result;
+		result += to_string((int)color[0]) + " ";
+		result += to_string((int)color[1]) + " ";
+		result += to_string((int)color[2]);
+
+		return result;
+	}
 
 	void changePixel(Location location, Color color = Color(0,0,0)){
 		//se estiver fora do limite simplesmente ignora
@@ -85,7 +80,7 @@ public:
 
 		int indexLine = 3 + matrixToLine(location);
 
-		docLines[indexLine] = colorToString(color);
+		docLines[indexLine] = stringify(color);
 	}
 
 

@@ -6,16 +6,16 @@
 #include <string>
 
 
+#include "vec3.h"
 #include "canvas.h"
 #include "plotter.h"
 #include "location.h"
-#include "color.h"
 
 
 using json::JSON;
 using namespace std;
 
-
+typedef vec3 Color;
 
 string stringFromFile(string filename)
 {
@@ -36,9 +36,8 @@ string stringFromFile(string filename)
 
 
 
-void jsonToLines(JSON obj){
+void jsonToLines(JSON obj, Canvas& canvas){
 
-    Canvas canvas(100,100,"jsonTEST.ppm");
     string index;
     string shape;
 
@@ -68,11 +67,33 @@ void jsonToLines(JSON obj){
             int y      = obj[index]["y"].ToInt();
             int radius = obj[index]["radius"].ToInt();
 
-            canvas.drawLine(Location(x,y),radius);
+            canvas.circleMidPoint(Location(x,y),radius);
+        }else if(shape == "interpolate"){
+
+            string quad[4] = {"c00","c01","c10","c11"};
+
+            Color c[4];
+
+            for(int i = 0;i < 4;i++){
+
+                if(obj[index][quad[i]].IsNull() && i!=0){
+                    for(int j = i;j < 4;j++){
+                        c[j] = c[i];
+                    }
+                    break;
+                }
+            
+                int r = obj[index][quad[i]]["r"].ToInt();
+                int g = obj[index][quad[i]]["g"].ToInt();
+                int b = obj[index][quad[i]]["b"].ToInt();
+
+
+                c[i] = Color(r,g,b);
+            }
+
+            canvas.interpolate(c[0],c[1],c[2],c[3]);
         }
     }
-
-    canvas.saveFile();
 }
 
 
