@@ -95,19 +95,3 @@ void jsonToLines(JSON obj, Canvas& canvas){
         }
     }
 }
-
-
-
-/*example
-int main()
-{
-
-    JSON obj;
-    string userInput = stringFromFile("lines.json");   
-    
-    obj = JSON::Load(userInput);
-
-
-    jsonToLines(obj);
-}
-*/
