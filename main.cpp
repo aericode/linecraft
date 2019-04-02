@@ -1,6 +1,10 @@
 #include <iostream>
 #include <vector>
 
+#include "json.hpp"
+
+#include "jsonReader.h"
+
 #include "plotter.h"
 #include "location.h"
 #include "color.h"
@@ -31,9 +35,9 @@ int main(){
 	canvas.saveFile();
 	*/
 
-	Canvas canvas(100,100,"default.ppm");
+	//Canvas canvas(100,100,"default.ppm");
 
-	canvas.drawLine(Location(50,50),Location(10,90),2);
+	//canvas.drawLine(Location(50,50),Location(10,90),2);
 
 	/*
 	for(int i = 0; i < 8 ; i++){
@@ -41,7 +45,16 @@ int main(){
 	}
 	*/
 
-	canvas.saveFile();
+	//canvas.saveFile();
+
+
+	JSON obj;
+    string userInput = stringFromFile("lines.json");
+
+    obj = JSON::Load(userInput);
+
+
+    jsonToLines(obj);
 
 	return 0;
 }

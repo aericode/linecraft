@@ -1,3 +1,7 @@
+#ifndef CANVAS_H
+#define CANVAS_H
+
+
 #include <math.h>
 #include <iostream>
 #include <fstream>
@@ -28,28 +32,6 @@ public:
 
 		plotBuffer = new Plotter (xSize,ySize,filename);
 	}
-	/*
-	void drawLine(Location starter, Location final, int thickness = 0){
-
-		lineBres(starter,final);
-
-		if(thickness > 0){
-			for(int i = 1; i < thickness; i++){
-				Location   upStarter(starter.getX() + i, starter.getY() + i);
-				Location downStarter(starter.getX() - i, starter.getY() - i);
-
-				Location   upFinal(final.getX() + i, final.getY() + i);
-				Location downFinal(final.getX() - i, final.getY() - i);
-
-
-				lineBres(upStarter,upFinal);
-				lineBres(downStarter,downFinal);
-			}
-		}
-	}
-	*/
-
-
 
 
 
@@ -280,3 +262,5 @@ public:
 		plotBuffer->plotFile();
 	}
 };
+
+#endif

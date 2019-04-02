@@ -5,6 +5,13 @@
 #include <fstream>
 #include <string>
 
+
+#include "canvas.h"
+#include "plotter.h"
+#include "location.h"
+#include "color.h"
+
+
 using json::JSON;
 using namespace std;
 
@@ -30,6 +37,8 @@ string stringFromFile(string filename)
 
 
 void jsonToLines(JSON obj){
+
+    Canvas canvas(100,100,"jsonTEST.ppm");
     string index;
     string shape;
 
@@ -52,13 +61,23 @@ void jsonToLines(JSON obj){
                 thickness = obj[index]["thickness"].ToInt();
             }
 
-            cout << "okay, draw a line from [" << x1 << "," << y1 <<"] to [" << x2 << "," << y2 <<"]" << endl;
-            cout << "thickness: " << thickness << endl;
+            canvas.drawLine(Location(x1,y1),Location(x2,y2),thickness);
+        }else if(shape == "circle"){
+
+            int x      = obj[index]["x"].ToInt();
+            int y      = obj[index]["y"].ToInt();
+            int radius = obj[index]["radius"].ToInt();
+
+            canvas.drawLine(Location(x,y),radius);
         }
     }
+
+    canvas.saveFile();
 }
 
 
+
+/*example
 int main()
 {
 
@@ -67,9 +86,7 @@ int main()
     
     obj = JSON::Load(userInput);
 
-    //cout << obj["commands"] << endl;
+
     jsonToLines(obj);
-
-    //cout<<obj["thickness"]<<endl;
-
 }
+*/
